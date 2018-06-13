@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage[round]{natbib}
+\usepackage{amssymb,amsmath, amscd, amsthm, mathrsfs}
+\renewcommand{\arraystretch}{1.5}
+
+\newcommand{\D}{\mathfrak{D}}
+\newcommand{\Dd}{\mathfrak{D}_\Delta}
+\newcommand{\R}{\mathbb{R}}
+
+
+
+
+\title{Operationalizing Operationalizing}
+%\author{Sarita Rosenstock}
+\date{ }
+
+\begin{document}
+
+\maketitle
+
+\section{Definitions}
+
+\subsection{Basic objects}
+
+\begin{itemize}
+    \item A \textit{distribution of voters} $\Delta$ consisting of the geographic distribution of the population in a state.
+    \begin{itemize}
+        \item This info may be as fine grained as census blocks or as course as counties, or anywhere in between.
+    \end{itemize}
+    \item A \textit{districting plan} $D$ consisting of possible partitions of $\Delta$ into $n$ maps, where $n$ is the apportioned number of congressional districts given to a state by congress according to $|\Delta|$, the cardinality of $\Delta$, relative to total US population.
+    \item These will generate a \textit{state space} $\Sigma$ of pairs $(\Delta, D)$. We can fix a population distribution $\Delta$ and talk about the space $\Dd$ of possible districting plans to pair with $\Delta$.
+\end{itemize}
+
+
+Pairs $(P, D)$ might need to be supplemented by additional information about the state. For example:
+
+\begin{itemize}
+    \item \textit{Demographic characteristics} $\xi$ associated with each $\Delta$ unit.
+    \begin{itemize}
+    	\item \textit{e.g.} Race, ethnicity, language, party registration, past voting results. Can be further refined as $\xi_R, \xi_E$ etc., or folded into $\Delta$.
+    \end{itemize} 
+    \item \textit{Geographic features} $G$ of the state that may affect community cohesion, e.g. rivers, mountains, lava pits
+    \item \textit{Transportation routes} $T$ that give information about travel time between blocks/ ``convenience" of districting plans.
+    \item Relevant pre-existing \textit{political boundaries} $B$.
+    \begin{itemize}
+        \item \textit{e.g.} counties, municipalities, special districts, state legislative districts. Can be further refined as, e.g. $B_{C}, B_{M}$, etc. 
+        \item May be further supplemented by \textit{adjacency} data for these existing political boundaries.
+        \item May supplemented or replaced with metadata such as centroid coordinates, boundary length, etc.
+    \end{itemize}
+    \item Incumbent home locations $I$.
+    
+\end{itemize}
+
+\subsection{Algorithms}
+
+There are a number of ways one could hash out our goals algorithmically. Here are a few:
+
+\begin{enumerate}
+
+	\item $f: \Delta \mapsto $ subset of $\Dd$ that meets the criteria given.
+		\begin{enumerate}
+			\item can be thought of descriptively as $f(\Delta) = $ list of restrictions to impose on elements of $\Dd$ 
+			\item or constructively $f(\Delta) = $ method of generating all districting plans that fit criteria.
+		\end{enumerate}
+	\item $f: (\Delta, D) \mapsto$ Yes/No that tells us whether a given $(\Delta, D)$ meets criteria
+		\begin{enumerate}
+			\item Alternately:  $f: (\Delta, D) \mapsto \R^n $ that assigns to a given plan a vector that encodes the degree to which it satisfies certain criteria ($n = 1$ for scalar properties)
+		\end{enumerate} 
+	\item $f: (\Delta, D) \mapsto$ distribution $\rho$ of elements of $\Dd$ indexed for a vectorized  (or scalar) property
+	\item $f: ( (\Delta_1, D_1), (\Delta_2, D_2) ) \mapsto $ whichever of the two plans is ``better" according given criteria
+	\begin{enumerate}
+			\item Can be thought of as imposing a (partial) ordering on $\Dd$ (\textit{i.e.} restriction of  2(a) to order information)
+		\end{enumerate} 
+		
+\end{enumerate}
+
+
+Also need: ordering on/weighting of criteria
+
+
+\end{document}
